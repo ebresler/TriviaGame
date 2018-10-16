@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text.css" href="assets/css/reset.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <title>Trivia Game</title>
+</head>
+
+<body>
+  <div class="header">
+    <div class="row">
+      <h1>California Trivia</h1>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <section class="quiz">
+
+      <button class="btn btn-primary start" id="startButton">Start</button>
+
+      <div class="row">
+        <div class="col-md-12, info">
+          Time Remaining
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" id="timeRemaining">
+          <div class="populate">
+            0
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <form action="#" id="form">
+        <label>What State borders California to the North?</label> <br>
+        <input type="radio" value="Washington" name="state"> Washington <br>
+        <input type="radio" value="Montana" name="state"> Montana<br>
+        <input type="radio" value="Oregon" name="state"> Oregon <br>
+        <input type="radio" value="Utah" name="state"> Utah <br>
+        <input type="radio" value="Idaho" name="state"> Idaho <br>
+
+        <br>
+
+        <label>What city is California's state capital?</label> <br>
+        <input type="radio" value="San Francisco" name="cities"> San Francisco <br>
+        <input type="radio" value="Los Angeles" name="cities"> Los Angeles<br>
+        <input type="radio" value="San Jose" name="cities"> San Jose <br>
+        <input type="radio" value="San Diego" name="cities"> San Diego <br>
+        <input type="radio" value="Sacramento" name="cities"> Sacramento <br>
+
+        <br>
+
+        <label>What year was California founded?</label> <br>
+        <input type="radio" value="1855" name="years"> 1855 <br>
+        <input type="radio" value="1850" name="years"> 1850<br>
+        <input type="radio" value="1790" name="years"> 1790<br>
+        <input type="radio" value="1813" name="years"> 1813 <br>
+        <input type="radio" value="1884" name="years"> 1884 <br>
+
+        <br>
+
+        <label>If California were a country, where would its economy rank in the world?</label> <br>
+        <input type="radio" value="Largest" name="economyRank"> Largest <br>
+        <input type="radio" value="Third largest" name="economyRank"> Third largest<br>
+        <input type="radio" value="Fifth largest" name="economyRank"> Fifth largest<br>
+        <input type="radio" value="Ninth largest" name="economyRank"> Ninth largest <br>
+        <input type="radio" value="Twelfth largest" name="economyRank"> Twelfth largest <br>
+
+        <br>
+
+        <label>Where does California rank in population compared to all the other states?</label> <br>
+        <input type="radio" value="Largest" name="sizeRank"> Largest <br>
+        <input type="radio" value="Second largest" name="sizeRank"> Second largest<br>
+        <input type="radio" value="Third largest" name="sizeRank"> Third largest<br>
+        <input type="radio" value="Fourth largest" name="sizeRank"> Fourth largest <br>
+        <input type="radio" value="Fifth largest" name="sizeRank"> Fifth largest <br>
+
+        <br>
+
+        <label>Who is the current governor of California</label> <br>
+        <input type="radio" value="Jim Brown" name="governor"> Jim Brown <br>
+        <input type="radio" value="Jerry Brown" name="governor"> Jerry Brown<br>
+        <input type="radio" value="Justin Brown" name="governor"> Justin Brown <br>
+        <input type="radio" value="Joseph Brown" name="governor"> Joseph Brown <br>
+        <input type="radio" value="Jared Brown" name="governor"> Jared Brown <br>
+
+      </form>
+
+      <br>
+
+      <button class="btn btn-primary done" id="stopButton">Done</button>
+
+    </section>
+
+    <div class="sum">
+      <p class="correct"></p>
+      <p class="incorrect"></p>
+      <p class="unanswered"></p>
+    </div>
+
+    </section>
+
+  </div>
+
+  <script src="assets/javascript/game.js"></script>
+
+</body>
+
+</html>
