@@ -27,9 +27,14 @@ h1 {
 	font-size: 70px;
 	font-weight: bold; 
 }
-#form, #timeRemaining, .info{
+#form, .info{
 	color: white;
 	font-size: 20px;
+}
+#timer{
+	background-color: white;
+	color: red;
+	font-size: 30px;
 }
 #startButton, #stopButton{
 	font-size: 30px;
