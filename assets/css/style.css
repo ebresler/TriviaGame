@@ -1,3 +1,4 @@
+/* page style */
 body{
 	background-image: url(../images/californiaBear.png);
 	text-align: center;
@@ -6,8 +7,8 @@ body{
   color: red;
 }
 .option{
-  margin: 15px;
-}
+  margin: 2px; 
+} 
 .header {
 	background-color: white;
 	color: red;

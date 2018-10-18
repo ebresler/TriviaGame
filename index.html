@@ -5,21 +5,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- reset style sheet -->
   <link rel="stylesheet" type="text.css" href="assets/css/reset.css">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <!-- jquery cdn -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- bootsrap cdn-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- style sheet -->
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
   <title>Trivia Game</title>
 </head>
 
 <body>
-
+  <!-- page header -->
   <div class="header">
     <div class="row">
       <h1>California Trivia</h1>
     </div>
   </div>
 
+  <!-- game container -->
   <div class="container">
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
@@ -27,22 +32,18 @@
           <p id="remaining-time" class="lead">Remaining Time: <span id="timer"></span></p>
           <p id="question" class="lead"></p>
         </div>
-        <div id="results">
-        </div>
-      </div>
-
-      <div class="row">
-        <div id="choices" class="text-center">
-          <button id="start" class="btn btn-info btn-lg">Start Game</button>
-          <div id="options">
-
+        <div id="results"></div>
+        <div class="row">
+          <div id="choices" class="text-center">
+            <button id="start" class="btn btn-warning btn-lg">Start Game</button>
+            <div id="options"></div>
           </div>
-
         </div>
       </div>
+    </div>
+  </div>
 
-    </div> 
-
+  <!-- javascript -->
   <script src="assets/javascript/game.js"></script>
 
 </body>

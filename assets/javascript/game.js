@@ -1,4 +1,4 @@
-// initialize game
+// initialize page
 $(document).ready(function(){
   
 // event listeners
@@ -7,57 +7,55 @@ $(document).ready(function(){
    $(document).on('click' , '.option', trivia.guessChecker);
     
   })
-  
+// game properties and data  
   var trivia = {
-    // game properties and data
     correct: 0,
     incorrect: 0,
     unanswered: 0,
     currentSet: 0,
-    timer: 20,
+    timer: " ",
     timerOn: false,
     timerId : " ",
 
     questions: {
-      q1: "What State borders California to the North?",
-      q2: "What city is California's state capital?",
-      q3: "What year was California founded?",
-      q4: "If California were a country, where would its economy rank in the world?",
-      q5: "Where does California rank in population compared to all the other states?",
-      q6: "Who is the current governor of California?",
+      question1: "What State borders California to the North?",
+      question2: "What city is California's state capital?",
+      question3: "What year was California founded?",
+      question4: "If California were a country, where would its economy rank in the world?",
+      question5: "Where does California rank in population compared to all the other states?",
+      question6: "Who is the current governor of California?",
     },
 
-    options: {
-      q1: ["Washington", "Montana", "Oregon", "Idaho"],
-      q2: ["San Francisco", "Sacramento", "Los Angeles", "San Diego"],
-      q3: ["1850", "1790", "1813", "1855"],
-      q4: ["Ninth Largest", "Eigth Largest", "Seventh Largest", "Sixth Largest"],
-      q5: ["Fourth Largest", "Third Largest", "Second Largest", "Largest"],
-      q6: ["Jim Brown","Jerry Brown","Justin Brown","Joseph Brown"],
+    answerOptions: {
+      question1: ["Washington", "Montana", "Oregon", "Idaho"],
+      question2: ["San Francisco", "Sacramento", "Los Angeles", "San Diego"],
+      question3: ["1850", "1790", "1813", "1855"],
+      question4: ["Ninth Largest", "Eigth Largest", "Seventh Largest", "Sixth Largest"],
+      question5: ["Fourth Largest", "Third Largest", "Second Largest", "Largest"],
+      question6: ["Jim Brown","Jerry Brown","Justin Brown","Joseph Brown"],
     },
 
-    answers: {
-      q1: "Oregon",
-      q2: "Sacramento",
-      q3: "1855",
-      q4: "Ninth Largest",
-      q5: "Largest",
-      q6: "Jerry Brown",
+    correctAnswers: {
+      question1: "Oregon",
+      question2: "Sacramento",
+      question3: "1855",
+      question4: "Ninth Largest",
+      question5: "Largest",
+      question6: "Jerry Brown",
     },
-    // trivia methods
-    // method to initialize game
+
+    // initialize game function and reset game results
     startGame: function(){
-      // restarting game results
       trivia.currentSet = 0;
       trivia.correct = 0;
       trivia.incorrect = 0;
       trivia.unanswered = 0;
       clearInterval(trivia.timerId);
       
-      // show game section
+      // show game div
       $("#game").show();
       
-      //  empty last results
+      // clear results
       $("#results").html('');
       
       // show timer
@@ -66,60 +64,61 @@ $(document).ready(function(){
       // remove start button
       $("#start").hide();
   
+      // display remaining time
       $("#remaining-time").show();
       
       // ask first question
       trivia.nextQuestion();
       
     },
-    // method to loop through and display questions and options 
+    // function to loop through and display questions and options 
     nextQuestion : function(){
       
-      // set timer to 20 seconds each question
+      // set timer to 10 seconds each question
       trivia.timer = 10;
         $("#timer").removeClass("last-seconds");
         $("#timer").text(trivia.timer);
       
-      // to prevent timer speed up
+      // set timer interval
       if(!trivia.timerOn){
         trivia.timerId = setInterval(trivia.timerRunning, 1000);
       }
       
-      // gets all the questions then indexes the current questions
+      // grabs question from trivia object
       var questionContent = Object.values(trivia.questions)[trivia.currentSet];
       $("#question").text(questionContent);
       
-      // an array of all the user options for the current question
-      var questionOptions = Object.values(trivia.options)[trivia.currentSet];
+      // grabs answer options for current question in trivia object
+      var questionOptions = Object.values(trivia.answerOptions)[trivia.currentSet];
       
-      // creates all the trivia guess options in the html
+      // displays trivia answer options as buttons
       $.each(questionOptions, function(index, key){
-        $("#options").append($('<button class="option btn btn-info btn-lg">'+key+'</button>'));
+        $("#options").append($('<button class="option btn btn-warning btn-lg">'+key+'</button>'));
       })
       
     },
-    // method to decrement counter and count unanswered if timer runs out
+    // function to decrease counter and count unanswered if timer runs out
     timerRunning : function(){
-      // if timer still has time left and there are still questions left to ask
+      // run timer
       if(trivia.timer > -1 && trivia.currentSet < Object.keys(trivia.questions).length){
         $("#timer").html(trivia.timer);
         trivia.timer--;
+          // show red timer clock at 5 seconds left          
           if(trivia.timer === 4){
             $("#timer").addClass("last-seconds");
           }
       }
-      // the time has run out and increment unanswered, run result
+      // Increase unanswered if timer runs out, display correct answer, clear 
       else if(trivia.timer === -1){
         trivia.unanswered++;
         trivia.result = false;
         clearInterval(trivia.timerId);
         resultId = setTimeout(trivia.guessResult, 2500);
-        $("#results").html('<h3>Times up! The correct answer is '+ Object.values(trivia.answers)[trivia.currentSet] +'</h3>');
+        $("#results").html('<h3>Times up! The correct answer is '+ Object.values(trivia.correctAnswers)[trivia.currentSet] +'</h3>');
       }
-      // if all the questions have been shown end the game, show results
+      // end game when all questions answered and show results
       else if(trivia.currentSet === Object.keys(trivia.questions).length){
         
-        // adds results of game (correct, incorrect, unanswered) to the page
         $("#results")
           .html("<h3>Thank you for playing!</h3>"+
           "<p>Correct: "+ trivia.correct +"</p>"+
@@ -134,29 +133,27 @@ $(document).ready(function(){
       }
       
     },
-    // method to evaluate the option clicked
+    // function to check the answer option clicked
     guessChecker : function() {
-      
-      // timer ID for gameResult setTimeout
       var resultId;
       
       // the answer to the current question being asked
-      var currentAnswer = Object.values(trivia.answers)[trivia.currentSet];
+      var currentAnswer = Object.values(trivia.correctAnswers)[trivia.currentSet];
       
-      // if the text of the option picked matches the answer of the current question, increment correct
+      // if the user chooses correct guess, increase correct
       if($(this).text() === currentAnswer){
         // turn button green for correct
-        $(this).addClass("btn-success").removeClass("btn-info");
+        $(this).addClass("btn-success").removeClass("btn-warning");
         
         trivia.correct++;
         clearInterval(trivia.timerId);
         resultId = setTimeout(trivia.guessResult, 2500);
         $("#results").html("<h3>Correct Answer!</h3>");
       }
-      // else the user picked the wrong option, increment incorrect
+      // else increase incorrect
       else{
         // turn button clicked red for incorrect
-        $(this).addClass('btn-danger').removeClass('btn-info');
+        $(this).addClass('btn-danger').removeClass('btn-warning');
         
         trivia.incorrect++;
         clearInterval(trivia.timerId);
@@ -165,16 +162,16 @@ $(document).ready(function(){
       }
       
     },
-    // method to remove previous question results and options
+    // function to move to remove current question data and move to next question
     guessResult : function(){
       
-      // increment to next question set
+      // move to next question in Trivia object
       trivia.currentSet++;
       
       // remove the options and results
       $(".option").remove();
       $("#results h3").remove();
-      
+    
       // begin next question
       trivia.nextQuestion();
        
