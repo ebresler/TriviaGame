@@ -1,13 +1,13 @@
 /* page style */
 body{
-	background-image: url(../images/californiaBear.png);
+	background-image: url(../images/water-768745_1920.jpg);
 	text-align: center;
 }
 .last-seconds{
   color: red;
 }
 .option{
-  margin: 2px; 
+	margin: 2px; 
 } 
 .header {
 	background-color: white;
@@ -16,7 +16,7 @@ body{
 	border-bottom: 5px solid green;
 	border-top: 5px solid green;
 	padding: 10px;
-}
+}	
 h1 {
 	font-size: 70px;
 	font-weight: bold;

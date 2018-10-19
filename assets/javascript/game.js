@@ -11,7 +11,7 @@ $(document).ready(function(){
   var trivia = {
     correct: 0,
     incorrect: 0,
-    unanswered: 0,
+    // unanswered: 0,
     currentSet: 0,
     timer: " ",
     timerOn: false,
@@ -49,7 +49,7 @@ $(document).ready(function(){
       trivia.currentSet = 0;
       trivia.correct = 0;
       trivia.incorrect = 0;
-      trivia.unanswered = 0;
+      // trivia.unanswered = 0;
       clearInterval(trivia.timerId);
       
       // show game div
@@ -72,7 +72,7 @@ $(document).ready(function(){
       
     },
     // function to loop through and display questions and options 
-    nextQuestion : function(){
+    nextQuestion:function(){
       
       // set timer to 10 seconds each question
       trivia.timer = 10;
@@ -88,17 +88,15 @@ $(document).ready(function(){
       var questionContent = Object.values(trivia.questions)[trivia.currentSet];
       $("#question").text(questionContent);
       
-      // grabs answer options for current question in trivia object
+      // grabs answer options for current question in trivia object and creates buttons
       var questionOptions = Object.values(trivia.answerOptions)[trivia.currentSet];
-      
-      // displays trivia answer options as buttons
       $.each(questionOptions, function(index, key){
         $("#options").append($('<button class="option btn btn-warning btn-lg">'+key+'</button>'));
       })
       
     },
     // function to decrease counter and count unanswered if timer runs out
-    timerRunning : function(){
+    timerRunning:function(){
       // run timer
       if(trivia.timer > -1 && trivia.currentSet < Object.keys(trivia.questions).length){
         $("#timer").html(trivia.timer);
@@ -110,7 +108,7 @@ $(document).ready(function(){
       }
       // Increase unanswered if timer runs out, display correct answer, clear 
       else if(trivia.timer === -1){
-        trivia.unanswered++;
+        trivia.incorrect++;
         trivia.result = false;
         clearInterval(trivia.timerId);
         resultId = setTimeout(trivia.guessResult, 2500);
@@ -118,12 +116,15 @@ $(document).ready(function(){
       }
       // end game when all questions answered and show results
       else if(trivia.currentSet === Object.keys(trivia.questions).length){
+
+        var iNum = ((trivia.correct/6)*100);
         
         $("#results")
           .html("<h3>Thank you for playing!</h3>"+
+          "<p>Total: 6</p>"+
           "<p>Correct: "+ trivia.correct +"</p>"+
           "<p>Incorrect: "+ trivia.incorrect +"</p>"+
-          "<p>Unaswered: "+ trivia.unanswered +"</p>");
+          "<p>Total Score: "+ iNum +"%</p>");
         
         // hide game sction
         $("#game").hide();
@@ -162,8 +163,8 @@ $(document).ready(function(){
       }
       
     },
-    // function to move to remove current question data and move to next question
-    guessResult : function(){
+    // function to remove current question data and move to next question
+    guessResult:function(){
       
       // move to next question in Trivia object
       trivia.currentSet++;
