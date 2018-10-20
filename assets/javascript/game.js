@@ -11,8 +11,7 @@ $(document).ready(function(){
   var trivia = {
     correct: 0,
     incorrect: 0,
-    // unanswered: 0,
-    currentSet: 0,
+    questionSet: 0,
     timer: " ",
     timerOn: false,
     timerId : " ",
@@ -46,7 +45,7 @@ $(document).ready(function(){
 
     // initialize game function and reset game results
     startGame: function(){
-      trivia.currentSet = 0;
+      trivia.questionSet = 0;
       trivia.correct = 0;
       trivia.incorrect = 0;
       // trivia.unanswered = 0;
@@ -85,11 +84,11 @@ $(document).ready(function(){
       }
       
       // grabs question from trivia object
-      var questionContent = Object.values(trivia.questions)[trivia.currentSet];
+      var questionContent = Object.values(trivia.questions)[trivia.questionSet];
       $("#question").text(questionContent);
       
       // grabs answer options for current question in trivia object and creates buttons
-      var questionOptions = Object.values(trivia.answerOptions)[trivia.currentSet];
+      var questionOptions = Object.values(trivia.answerOptions)[trivia.questionSet];
       $.each(questionOptions, function(index, key){
         $("#options").append($('<button class="option btn btn-warning btn-lg">'+key+'</button>'));
       })
@@ -98,7 +97,7 @@ $(document).ready(function(){
     // function to decrease counter and count unanswered if timer runs out
     timerRunning:function(){
       // run timer
-      if(trivia.timer > -1 && trivia.currentSet < Object.keys(trivia.questions).length){
+      if(trivia.timer > -1 && trivia.questionSet < Object.keys(trivia.questions).length){
         $("#timer").html(trivia.timer);
         trivia.timer--;
           // show red timer clock at 5 seconds left          
@@ -112,10 +111,10 @@ $(document).ready(function(){
         trivia.result = false;
         clearInterval(trivia.timerId);
         resultId = setTimeout(trivia.guessResult, 2500);
-        $("#results").html('<h3>Times up! The correct answer is '+ Object.values(trivia.correctAnswers)[trivia.currentSet] +'</h3>');
+        $("#results").html('<h3>Times up! The correct answer is '+ Object.values(trivia.correctAnswers)[trivia.questionSet] +'</h3>');
       }
       // end game when all questions answered and show results
-      else if(trivia.currentSet === Object.keys(trivia.questions).length){
+      else if(trivia.questionSet === Object.keys(trivia.questions).length){
 
         var iNum = ((trivia.correct/6)*100);
         
@@ -139,7 +138,7 @@ $(document).ready(function(){
       var resultId;
       
       // the answer to the current question being asked
-      var currentAnswer = Object.values(trivia.correctAnswers)[trivia.currentSet];
+      var currentAnswer = Object.values(trivia.correctAnswers)[trivia.questionSet];
       
       // if the user chooses correct guess, increase correct
       if($(this).text() === currentAnswer){
@@ -167,7 +166,7 @@ $(document).ready(function(){
     guessResult:function(){
       
       // move to next question in Trivia object
-      trivia.currentSet++;
+      trivia.questionSet++;
       
       // remove the options and results
       $(".option").remove();
